@@ -1,0 +1,16 @@
+
+- hosts: clients
+  become: yes
+  roles:
+    - githubixx.ansible_role_wireguard
+  vars:
+    wireguard_interface_name: "{{ wg_interface }}"
+    wireguard_port: "{{ wg_port }}"
+    wireguard_address: "{{ wg_ip }}/32"
+
+    wireguard_peers:
+      - name: router
+        public_key: "{{ hostvars['router'].wg_public_key }}"
+        endpoint: "{{ hostvars['router'].public_ip }}:{{ wg_port }}"
+        allowed_ips: "10.10.0.0/24"
+        persistent_keepalive: 25

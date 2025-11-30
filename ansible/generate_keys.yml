@@ -1,0 +1,20 @@
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Generate private key
+      command: wg genkey
+      register: private_key
+      changed_when: true
+
+    - name: Save private key
+      set_fact:
+        wg_private_key: "{{ private_key.stdout }}"
+
+    - name: Generate public key
+      command: /bin/sh -c "echo {{ wg_private_key }} | wg pubkey"
+      register: pub_key
+      changed_when: true
+
+    - set_fact:
+        wg_public_key: "{{ pub_key.stdout }}"

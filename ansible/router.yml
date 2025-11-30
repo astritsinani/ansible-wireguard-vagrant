@@ -1,0 +1,18 @@
+
+- hosts: router
+  become: yes
+  roles:
+    - githubixx.ansible_role_wireguard
+  vars:
+    wireguard_interface_name: "{{ wg_interface }}"
+    wireguard_port: "{{ wg_port }}"
+    wireguard_address: "{{ wg_ip }}/24"
+    wireguard_enable_forwarding: true
+
+    wireguard_peers:
+      - name: client1
+        public_key: "{{ hostvars['client1'].wg_public_key }}"
+        allowed_ips: "10.10.0.2/32"
+      - name: client2
+        public_key: "{{ hostvars['client2'].wg_public_key }}"
+        allowed_ips: "10.10.0.3/32"
