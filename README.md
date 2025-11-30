@@ -46,14 +46,23 @@ This project uses:
 
 .
 ├── Vagrantfile
+
 ├── README.md
+
 └── ansible/
+
 ├── ansible.cfg
+
 ├── requirements.yml
+
 ├── inventory.ini
+
 ├── site.yml
+
 ├── generate_keys.yml
+
 ├── router.yml
+
 └── peers.yml
 
 ````
