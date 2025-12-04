@@ -1,7 +1,8 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "utm/bookworm"
-
+  config.ssh.forward_agent = true
+  
   nodes = {
     "router" => "192.168.56.10",
     "client1" => "192.168.56.11",
@@ -19,8 +20,8 @@ Vagrant.configure("2") do |config|
       end
 
       node.vm.provision "ansible" do |ansible|
+ 	ansible.compatibility_mode = "2.0"
         ansible.playbook = "ansible/site.yml"
-        ansible.inventory_path = "ansible/inventory.ini"
         ansible.become = true
       end
     end

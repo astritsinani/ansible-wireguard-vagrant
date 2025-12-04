@@ -1,6 +1,12 @@
-
-- hosts: all
+- hosts: router
   become: yes
+  tasks:
+
+    - name: Install wireguard
+      apt:
+        name: wireguard
+        state: present
+        update_cache: yes
   tasks:
     - name: Generate private key
       command: wg genkey
